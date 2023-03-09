@@ -120,7 +120,7 @@ public class App {
                     getProductAll();
                     break;
                 case 6:
-
+                    getProductsortCategoryAll();
                     break;
                 default:
                     break;
@@ -134,6 +134,26 @@ public class App {
         ArrayList<Product> productTemporal = productsMayor.sortByCategory();
 
         for (Product product : productTemporal) {
+            System.out.println("NOMBRE:"+product.getName());
+            System.out.println("CATEGORÍA: "+product.getCategory());
+        }
+    }
+
+
+
+    
+    public void getProductsortCategoryAll(){
+        ArrayList<Product> productTemporal = productsMayor.sortByCategory();
+        System.out.println("MERCADO MAYOR======================================");
+        for (Product product : productTemporal) {
+            System.out.println("NOMBRE:"+product.getName());
+            System.out.println("CATEGORÍA: "+product.getCategory());
+        }
+
+
+        ArrayList<Product> productTemporal2 = productsMinor.sortByCategory();
+        System.out.println("MERCADO MENOR======================================");
+        for (Product product : productTemporal2) {
             System.out.println("NOMBRE:"+product.getName());
             System.out.println("CATEGORÍA: "+product.getCategory());
         }
