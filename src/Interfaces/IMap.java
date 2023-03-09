@@ -1,5 +1,7 @@
 package Interfaces;
 
+import java.util.ArrayList;
+
 import models.Product;
 
 public interface IMap {
@@ -10,5 +12,7 @@ public interface IMap {
 
     public Product find(int position);
 
+    public int size();
 
+    public ArrayList sortByCategory();
 }
