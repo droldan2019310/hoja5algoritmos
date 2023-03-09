@@ -24,14 +24,13 @@ public class App {
 
 
     public void start(){
-        readFile();
         menuMap();
         menuNormal();
     }
 
 
     public void readFile(){
-        File file = new File("ListadoProducto.txt");
+        File file = new File("src/ListadoProducto.txt");
         // Note:  Double backquote is to avoid compiler
         // interpret words
         // like \test as \t (ie. as a escape sequence)
@@ -42,30 +41,30 @@ public class App {
             
             
             
-            reader = new BufferedReader(new FileReader("sample.txt"));
+            reader = new BufferedReader(new FileReader(file));
 			String line = reader.readLine();
-
+            Product product;
 			while (line != null) {
 				// read next line
 				line = reader.readLine();
 
-                String[] values = line.split("|");
-
-                String name = values[0].replaceAll(" ", "");
-                String category = values[1].replaceAll(" ", "");
-                Product product = new Product();
-                product.setName(name);
-                product.setCategory(category);
-                try {
-                    productsMayor.add(product);
-                    productsMinor.add(product);
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                if(line!=null){
+                    String[] values = line.split("\\|");
+    
+                    String name = values[1];
+                    String category = values[0];
+                    product = new Product();
+                    product.setName(name);
+                    product.setCategory(category);
+                    try {
+                        productsMayor.add(product);
+                        productsMinor.add(product);
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                 }
-
 			}
-
         } catch (IOException e) {
             // TODO Auto-generated catch block
             System.out.println(e);
@@ -83,6 +82,10 @@ public class App {
 
         productsMayor = factory.getMap(resp);
         productsMinor = factory.getMap(resp);
+
+
+        readFile();
+
     }
 
 
@@ -136,9 +139,30 @@ public class App {
         }
     }
 
+
+
+
+    public void getProductsAllsortCategory(){
+        ArrayList<Product> productTemporal = productsMayor.sortByCategory();
+        System.out.println("MERCADO MAYOR================================");
+        for (Product product : productTemporal) {
+            System.out.println("NOMBRE:"+product.getName());
+            System.out.println("CATEGORÍA: "+product.getCategory());
+        }
+
+        System.out.println("MERCADO MENOR");
+        ArrayList<Product> productTemporal1 = productsMinor.sortByCategory();
+
+        for (Product product : productTemporal1) {
+            System.out.println("NOMBRE:"+product.getName());
+            System.out.println("CATEGORÍA: "+product.getCategory());
+        }
+
+    }
+
     public void getCategoryProduct(){
-        System.out.println("INGRESA LA CATEGORÍA?");
-        String category = in.nextLine();
+        System.out.println("INGRESA LA CATEGORÍA: ");
+        String category = in.next();
         System.out.println("CATEGORIA: "+category);
         for(int x =0; x<productsMayor.size();x++){
             if(productsMayor.find(x).getCategory().equals(category)){
@@ -149,8 +173,8 @@ public class App {
 
 
     public void getProductCategory(){
-        System.out.println("INGRESA EL NOMBRE DEL PRODUCTO");
-        String name = in.nextLine();
+        System.out.println("INGRESA EL NOMBRE DEL PRODUCTO: ");
+        String name = in.next();
         System.out.println("NOMBRE: "+name);
         for(int x =0; x<productsMayor.size();x++){
             if(productsMayor.find(x).getName().equals(name)){
@@ -186,10 +210,10 @@ public class App {
 
     public void addProduct(){
         Product product = new Product();
-        System.out.println("INGRESA EL NOMBRE");
-        String name = in.nextLine();
-        System.out.println("INGRESA LA CATEGORÍA");
-        String category = in.nextLine();
+        System.out.println("INGRESA EL NOMBRE: ");
+        String name = in.next();
+        System.out.println("INGRESA LA CATEGORÍA: ");
+        String category = in.next();
         System.out.println("EN QUE MERCADO DESEAS INGRESARLO?");
         System.out.println("1. MAYOR");
         System.out.println("2. MENOR");
